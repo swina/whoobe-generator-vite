@@ -1,0 +1,18 @@
+/* ./src/index.css */
+@tailwind base;
+@tailwind components;
+
+button {
+    @apply bg-gray-700 text-white text-sm leading-4 px-2 py-1 border border-transparent rounded-none outline-none;
+    width: fit-content;
+}
+
+button:focus {
+  @apply outline-none;
+}
+
+button:hover {
+    @apply bg-white text-black border-gray-300;
+}
+
+@tailwind utilities;

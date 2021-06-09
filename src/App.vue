@@ -1,29 +1,34 @@
 <template>
   <div id="app">
-    <img
-      alt="Vue logo"
-      src="./assets/logo.png"
-    />
-    <HelloWorld msg="Hello Vue 2 + Vite" />
+    <block-preview :doc="page.component.json"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import Page from '../config.js'
 export default {
-  components: {
-    HelloWorld,
+  name: 'Whoobe',
+  metaInfo: {
+    title: Page.component.seo.title ,
+    titleTemplate: '%s | Whoobe Landing Page',
+    meta : [
+      { vmid: 'description', name: 'description' , content: Page.component.seo.description }
+    ]
   },
+  components: {
+    'block-preview' : () => import ( './components/blocks/block.preview.vue' )
+  },
+  computed:{
+    page(){
+      return Page
+    }
+  }
 };
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 </style>

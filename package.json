@@ -7,10 +7,17 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "gsap": "^3.6.1",
     "vite-plugin-vue2": "^1.4.0",
-    "vue": "^2.6.12"
+    "vue": "^2.6.12",
+    "vue-meta": "^2.4.0",
+    "vue-simple-svg": "^2.0.2"
   },
   "devDependencies": {
-    "vite": "^2.0.5"
+    "autoprefixer": "^10.2.6",
+    "postcss": "^8.3.0",
+    "tailwindcss": "^2.1.4",
+    "vite": "^2.0.5",
+    "vite-plugin-fonts": "^0.2.2"
   }
 }
