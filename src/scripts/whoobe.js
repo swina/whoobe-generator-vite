@@ -59,16 +59,22 @@ function cssResponsive ( classe ){
     return responsiveCss
 }
 
+function returnURL (){
+    let url = import.meta.env.MODE === 'production' ?
+            '' : import.meta.env.VITE_API_URL 
+    console.log ( url , import.meta.env.MODE  )
+    return url
+}
+
 function imageURL ( image ){
     if ( !image ) return false
     //return image.url
     let url = ''
         !image.hasOwnProperty('url') ?
-            image.includes('//') ? url = image : url = import.meta.env.VITE_API_URL + image :
-                image.url ? 
-                    !image.url.includes('//') ? 
-                        url = import.meta.env.VITE_API_URL + image.url : //.substring(1) :
-                            url = image.url : ''
+            image.includes('//') ? url = image : url = returnURL() + image.substring(1) :
+                image.url.includes('//') ? 
+                    url = image.url :
+                        url = returnURL() + image.url.substring(1) 
     return url
 }
 

@@ -1,19 +1,23 @@
 
 const colors = require('tailwindcss/colors')
 const cssToPurge = require('./purge.js' )
-var purgeSafeList = [/^grid/,/^grid-cols-/,/^flex/,/^col-span-/,/^md:grid/,/^md:grid-cols/,/^md:flex-/,/^md:p/,/^md:m/,/^from-/,/^to-/,/^via/]
+var purgeSafeList = [/^grid/,/^grid-cols-/,/^flex/,/^col-span-/,/^md:grid/,/^md:grid-cols/,/^md:flex-/]
+//,/^md:p/,/^md:m/,/^from-/,/^to-/,/^via/
 var pageSafeList = cssToPurge.purge[0].split(',')
-purgeSafeList.forEach ( css => {
-  pageSafeList.push ( css )
-})
-console.log ( pageSafeList.sort() )
+//purgeSafeList.forEach ( css => {
+//  pageSafeList.push ( css )
+//})
 module.exports = {
   purge: {
-     enabled: false,
-  //   content : [
-  //   './src/**/*.html',
-  //   './src/**/*.vue',
-  //   './src/**/*.jsx',
+    enabled: true,
+    content : [
+      './src/**/*.html',
+      './src/**/*.vue',
+      './src/**/*.js',
+    ],
+    options: {
+      safelist: require('./purge.js').purge[0].split(',')
+    }
   //   ],
   //   options: {
   //     safelist: pageSafeList
