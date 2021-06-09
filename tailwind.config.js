@@ -1,7 +1,7 @@
 
 const colors = require('tailwindcss/colors')
 const cssToPurge = require('./purge.js' )
-var purgeSafeList = [/^grid/,/^grid-cols-/,/^flex/,/^col-span-/,/^md:grid-cols/,/^md:flex-/,/^md:p/,/^md:m/]
+var purgeSafeList = [/^grid/,/^grid-cols-/,/^flex/,/^col-span-/,/^md:grid/,/^md:grid-cols/,/^md:flex-/,/^md:p/,/^md:m/,/^from-/,/^to-/,/^via/]
 var pageSafeList = cssToPurge.purge[0].split(',')
 purgeSafeList.forEach ( css => {
   pageSafeList.push ( css )

@@ -16,7 +16,8 @@
             <img v-if="el.element === 'img' && el.image && el.image.url && el.image.ext != '.svg' && el.image.ext != '.mp4'" :src="$imageURL(el.image)" :caption="el.image.caption" :alt="el.image.alternative_text" :class="$cssResponsive(el.css)"/>
             
             <div v-if="(el.element === 'img')  && el.image && el.image.ext === '.svg'" :class="el.css + ' fill-current'">     
-                <simple-svg :src="$imageURL(el.image)" width="100%" height="100%"/>
+                <img :src="$imageURL(el.image)"/>
+                <!-- <simple-svg :src="$imageURL(el.image)" width="100%" height="100%"/> -->
             </div>
 
             <video :class="$cssResponsive(el.css)" v-if="el.type==='video' && el.image && el.image.url" :autoplay="el.hasOwnProperty('autoplay')?el.autoplay:true" 
