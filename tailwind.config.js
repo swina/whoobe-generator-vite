@@ -8,8 +8,8 @@ purgeSafeList.forEach ( css => {
 })
 console.log ( pageSafeList.sort() )
 module.exports = {
-  // purge: {
-  //   enabled: true,
+  purge: {
+     enabled: false,
   //   content : [
   //   './src/**/*.html',
   //   './src/**/*.vue',
@@ -18,7 +18,7 @@ module.exports = {
   //   options: {
   //     safelist: pageSafeList
   //   }
-  // },
+  },
   darkMode: false, // or 'media' or 'class'
   theme: {
     colors:{
