@@ -9,7 +9,7 @@ var pageSafeList = cssToPurge.purge[0].split(',')
 //})
 module.exports = {
   purge: {
-    enabled: true,
+    //enabled: true,
     content : [
       './src/**/*.html',
       './src/**/*.vue',

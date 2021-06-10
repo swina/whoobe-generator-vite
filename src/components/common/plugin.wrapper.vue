@@ -18,7 +18,8 @@ export default {
     },
     mounted(){
         let name = this.plugin.general.path 
-        this.component = () =>  import( `../components/plugins/${name}.vue` )
+        console.log ( name )
+        this.component = () =>  import( `../../components/plugins/${name}.vue` )
     }
 }
 </script>

@@ -75,6 +75,12 @@
                 </div>
             </nav>
             </transition>
+
+            <plugin-wrapper 
+                v-if="el.hasOwnProperty('plugin')"
+                :block="el"  
+                :plugin="el.plugin" 
+                :component="el.plugin"/>
     </div>
 </template>
 

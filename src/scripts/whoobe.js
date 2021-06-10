@@ -62,7 +62,6 @@ function cssResponsive ( classe ){
 function returnURL (){
     let url = import.meta.env.MODE === 'production' ?
             '' : import.meta.env.VITE_API_URL 
-    console.log ( url , import.meta.env.MODE  )
     return url
 }
 
