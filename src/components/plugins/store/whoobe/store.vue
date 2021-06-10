@@ -9,29 +9,15 @@
         </div>
        
 
-        <!-- <div v-if="!apikey" class="text-center w-full border-4 bg-gray-300 text-lg text-red-500">Invalid License Key</div> -->
-        <!-- <h3 id="storeTop">Store</h3> -->
-        
         <store-categories v-if="!current && settings.loop.categories.enabled" :container="settings.loop.categories.container" :css="settings.loop.categories.css" @category="qryByCategory"/>
         
         <div class="flex flex-col md:flex-row" v-if="!current">
             <p v-if="settings.general.display.total.enabled" :class="settings.general.display.total.css">{{ settings.general.display.total.name }} {{total}}</p>
             <input v-if="settings.general.display.search.enabled" type="text" :class="settings.general.display.search.css" :placeholder="settings.general.display.search.name" v-model="search" @keydown="productSearch($event)"/><icon name="zoom" class="visible md:invisible"/>
         </div>
-        <!-- <div class="w-full flex flex-row items-center justify-center text-center cursor-pointer" v-if="settings.general.display.navigation">
-            <icon :class="settings.general.display.navigation.css" :name="settings.general.display.navigation.name.split(',')[0]||'chevron_left'" @click="start > 0 ? start=start-limit : null"/>
-            <div>{{start+1}}-{{ ((start+limit) < total) ? (start+limit) :total }}</div>
-            <icon :class="settings.general.display.navigation.css" :name="settings.general.display.navigation.name.split(',')[1]||'chevron_right'" @click="(start+limit)<=total?start=start+limit:null"/>
-        </div> -->
-       
 
-        
+        <div v-if="!products.length"><h3>No products found!</h3></div>
 
-        
-        
-       
-
-            <div v-if="!products.length"><h3>No products found!</h3></div>
         <div v-if="!current" class="flex flex-col items-center justify-center" :class="settings.loop.cols">
             <template v-for="(product,index) in products">
                 <div v-if="index>=start && index<(start+limit)" class="flex flex-col" :class="settings.loop.css" @click="current=product,currentPrice=product.price,currentOption=product.optionValues,variations(product.sku)">
@@ -131,7 +117,6 @@
 //import language from '@/components/plugins/store/whoobe/en.js'
 //import MokaPreview from '@/components/editor/preview/moka.preview.container'
 import model from './model.js'
-import store from './store.js'
 export default {
     name: 'WhoobeStore',
     components: {
@@ -226,10 +211,15 @@ export default {
             // })
         },
         qry(){
-            this.products = store.products.data
-            this.allProducts = store.products.data
-            this.total = store.products.total
-            this.allVariations = store.variations.data
+            fetch('/store.json')
+                .then ( res => res.json() )
+                .then ( store => {
+                    this.products = store.products.data
+                    this.allProducts = store.products.data
+                    this.total = store.products.total
+                    this.allVariations = store.variations.data
+            })
+            
 
             // fetch(import.meta.env.VITE_API_URL + 'products?$limit=100&$skip=' + this.start + '&type=product')
             //     .then ( res => res.json())

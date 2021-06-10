@@ -9,14 +9,17 @@
 </template>
 
 <script>
-import store from './store.js'
 export default {
     name: 'WhoobeStoreCategories',
     data:()=>({
         categories: null
     }),
     mounted(){
-        this.categories = store.categories.data
+        fetch('/store.json')
+            .then ( res => res.json() )
+            .then ( store => {
+            this.categories = store.categories.data
+        })
 
         // fetch(import.meta.env.VITE_API_URL + 'categories?$limit=50&type=product&$sort[name]=1')
         //     .then ( res => res.json() )
