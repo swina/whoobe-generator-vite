@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "serve": "vite build & vite preview"
+    "serve": "vite build & vite preview",
+    "preview" : "vite preview"
   },
   "dependencies": {
     "gsap": "^3.6.1",

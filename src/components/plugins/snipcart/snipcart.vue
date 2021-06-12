@@ -53,7 +53,7 @@ export default {
         this.cart = true
     },
     mounted(){
-        this.apiKey = this.$attrs.plugin.component.config['apikey']
+        this.apiKey = this.$attrs.apikey //this.$attrs.plugin.component.config['apikey']
     }
 }
 </script>

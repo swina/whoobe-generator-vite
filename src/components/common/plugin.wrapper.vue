@@ -2,8 +2,7 @@
     <div class="relative"> 
         <component 
             :is="component"
-            :plugin="plugin"
-            :editor="$attrs.editor"/>
+            :plugin="plugin"/>
     </div>
 </template>
 
@@ -17,9 +16,9 @@ export default {
     computed:{
     },
     mounted(){
-        let name = this.plugin.general.path 
-        console.log ( name )
-        this.component = () =>  import( `../../components/plugins/${name}.vue` )
+        let name = this.plugin.general.path.toString()
+        name = 'whoobe-store'
+        this.component = `${name}` //'whoobe-store' //() => import( `../../components/plugins/store/whoobe/store.vue` )
     }
 }
 </script>

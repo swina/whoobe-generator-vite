@@ -1,30 +1,31 @@
 <template>
-    <div class="" v-if="products">
-    <div class="relative" :class="settings.general.css">
-        <div v-if="settings.general.display.cart.enabled" class="w-full text-xs flex flex-row items-center justify-end snipcart-checkout">
+    <div class="" v-if="products && $attrs.plugin.settings">
+        <h1>STORE {{ $attrs.plugin.settings.general.css }}</h1>
+    <div class="relative" :class="$attrs.plugin.settings.general.css">
+        <div v-if="$attrs.plugin.settings.general.display.cart.enabled" class="w-full text-xs flex flex-row items-center justify-end snipcart-checkout">
             <span class="snipcart-items-count"></span>
-            <icon :name="settings.general.display.cart.name||'shooping_bag'" :class="settings.general.display.cart.css"/>
+            <icon :name="$attrs.plugin.settings.general.display.cart.name||'shooping_bag'" :class="$attrs.plugin.settings.general.display.cart.css"/>
             <!--<i class="material-icons">shopping_bag</i>-->
             <span class="snipcart-total-price"></span>  
         </div>
        
 
-        <store-categories v-if="!current && settings.loop.categories.enabled" :container="settings.loop.categories.container" :css="settings.loop.categories.css" @category="qryByCategory"/>
+        <store-categories v-if="!current && $attrs.plugin.settings.loop.categories.enabled" :container="$attrs.plugin.settings.loop.categories.container" :css="$attrs.plugin.settings.loop.categories.css" @category="qryByCategory"/>
         
         <div class="flex flex-col md:flex-row" v-if="!current">
-            <p v-if="settings.general.display.total.enabled" :class="settings.general.display.total.css">{{ settings.general.display.total.name }} {{total}}</p>
-            <input v-if="settings.general.display.search.enabled" type="text" :class="settings.general.display.search.css" :placeholder="settings.general.display.search.name" v-model="search" @keydown="productSearch($event)"/><icon name="zoom" class="visible md:invisible"/>
+            <p v-if="$attrs.plugin.settings.general.display.total.enabled" :class="$attrs.plugin.settings.general.display.total.css">{{ $attrs.plugin.settings.general.display.total.name }} {{total}}</p>
+            <input v-if="$attrs.plugin.settings.general.display.search.enabled" type="text" :class="$attrs.plugin.settings.general.display.search.css" :placeholder="$attrs.plugin.settings.general.display.search.name" v-model="search" @keydown="productSearch($event)"/><icon name="zoom" class="visible md:invisible"/>
         </div>
 
         <div v-if="!products.length"><h3>No products found!</h3></div>
 
-        <div v-if="!current" class="flex flex-col items-center justify-center" :class="settings.loop.cols">
+        <div v-if="!current" class="flex flex-col items-center justify-center" :class="$attrs.plugin.settings.loop.container">
             <template v-for="(product,index) in products">
-                <div v-if="index>=start && index<(start+limit)" class="flex flex-col" :class="settings.loop.css" @click="current=product,currentPrice=product.price,currentOption=product.optionValues,variations(product.sku)">
-                    <template v-for="field in settings.loop.fields">
+                <div v-if="index>=start && index<(start+limit)" class="flex flex-col" :class="$attrs.plugin.settings.loop.css" @click="current=product,currentPrice=product.price,currentOption=product.optionValues,variations(product.sku)">
+                    <template v-for="field in $attrs.plugin.settings.loop.fields">
                         
                         <div :class="field.css" v-if="schema[field.name].type!='image_uri' && field.name !='add_to_cart'">
-                            <small class="mr-1" v-if="schema[field.name].type==='currency'">{{ settings.general.currency }}</small>
+                            <small class="mr-1" v-if="schema[field.name].type==='currency'">{{ $attrs.plugin.settings.general.currency }}</small>
                             {{ schema[field.name].type==='currency' ? parseFloat(product[field.name]).toFixed(2) : product[field.name] }}
                         </div>
                         <div v-else>
@@ -38,10 +39,9 @@
         </div>
         <!-- PAGINATION -->
         <div v-if="!current">
-            <div class="flex flex-row w-full items-center justify-center" v-if="settings.general.display.navigation">
-                {{ settings.general.display.navigation.name }} 
+            <div class="flex flex-row w-full items-center justify-center" v-if="$attrs.plugin.settings.general.display.navigation">
                 <template v-for="page in pages">
-                    <div :class="settings.general.display.navigation.css + ' ' + activePage(page)" @click="start=(page-1)*limit">{{ page }}</div>
+                    <div :class="$attrs.plugin.settings.general.display.navigation.css + ' ' + activePage(page)" @click="start=(page-1)*limit">{{ page }}</div>
                 </template>
             </div>
         </div>
@@ -49,11 +49,11 @@
 
         <!-- SINGLE VIEW -->
         <div v-if="current" class="fixed inset-0 overflow-y-auto h-screen md:relative md:h-auto">
-            <div :class="settings.single.css + ' grid-cols-'  + settings.single.cols" class="flex flex-col md:grid relative">
+            <div :class="$attrs.plugin.settings.single.css + ' '  + $attrs.plugin.settings.single.container">
                 <icon name="close" class="absolute right-0 top-0 text-3xl" @click="current=null"/>
-                <div v-for="n in parseInt(settings.single.cols)">    
+                <div v-for="n in parseInt($attrs.plugin.settings.single.cols)">    
 
-                    <template v-for="field in settings.single.fields">
+                    <template v-for="field in $attrs.plugin.settings.single.fields">
                         <span v-if="schema[field.name] && parseInt(field.col)===(n-1)">
                             <div :class="field.css" v-if="schema[field.name].type==='text' || schema[field.name].type === 'string'">
                                 <span v-if="field.name!='sku'">{{ current[field.name] }}</span>
@@ -73,7 +73,7 @@
 
                             </div>
                             <div :class="field.css" v-if="schema[field.name].type==='currency'">
-                                <small class="mr-1">{{ settings.general.currency }}</small>
+                                <small class="mr-1">{{ $attrs.plugin.settings.general.currency }}</small>
                                 <span>{{ parseFloat(currentPrice).toFixed(2) }}</span>
                             </div>
                             <div :class="field.css" v-if="field.name==='category'">
@@ -109,7 +109,8 @@
         
         
     </div>
-
+    
+    <whoobe-snipcart :apikey="$attrs.plugin.settings.general.cart"/>
     </div>
 </template>
 
@@ -210,16 +211,12 @@ export default {
             //     this.productVariations = res.data
             // })
         },
-        qry(){
-            fetch('/store.json')
-                .then ( res => res.json() )
-                .then ( store => {
-                    this.products = store.products.data
-                    this.allProducts = store.products.data
-                    this.total = store.products.total
-                    this.allVariations = store.variations.data
-            })
-            
+        async qry(){
+            console.log ( this.$store() )
+            this.products = this.$store().products.data
+            this.allProducts = this.$store().products.data
+            this.total = this.$store().products.total
+            this.allVariations = this.$store().variations.data
 
             // fetch(import.meta.env.VITE_API_URL + 'products?$limit=100&$skip=' + this.start + '&type=product')
             //     .then ( res => res.json())
@@ -300,6 +297,7 @@ export default {
         //console.log ( this.$attrs.plugin.editor.settings )
         //if ( this.$attrs.config.mode != 'static' ){
             //this.$http.get('products').then ( res => {
+            console.log ( 'Fetching store ...')
             this.lang = this.language[navigator.language||'en']
             !this.lang ? this.lang = this.language['en'] : null
             this.settings = this.$attrs.plugin.settings
