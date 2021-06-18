@@ -18,29 +18,41 @@
             
              
 
-            <block-preview-container
+            <!-- <block-preview-container -->
+            <block.preview.container
                 :key="block.id"
-                v-if="block && !block.hasOwnProperty('slider') && block.hasOwnProperty('blocks') && !block.hasOwnProperty('items') && !block.hasOwnProperty('image_flip') && !block.hasOwnProperty('popup') && block.type!='plugin' && !block.hasOwnProperty('collection') && block.tag != 'menu' && block.type !='slides'" @action="elementAction" 
+                v-if="block && !block.hasOwnProperty('slider') && block.hasOwnProperty('blocks') && !block.hasOwnProperty('items') && !block.hasOwnProperty('image_flip') && !block.hasOwnProperty('popup') && block.type!='plugin' && !block.hasOwnProperty('collection') && block.tag != 'menu' && block.type !='slides' && block.tag != 'form'" @action="elementAction" 
                 :data="$attrs.data||null"
                 :currency="$attrs.currency||null"
                 :doc="block" :animation="$attrs.animation"/>
             
             
-            <block-element
+            <block.element.component
                 @click="elementAction"
-                v-if="block && !block.hasOwnProperty('blocks') && block.type!='slides' && !block.hasOwnProperty('items')"
+                v-if="block && !block.hasOwnProperty('blocks') && block.type!='slides' && !block.hasOwnProperty('items') && block.type != 'popup'"
                 :key="block.id"
                 :data="$attrs.data||''"
                 :dataset="doc.hasOwnProperty('data')?doc.data:null"
                 :currency="$attrs.currency||null"
-                :element="block"
+                :el="block"
                 :coords="[b]"
                 :develop="false"/>
             
-            <block-preview-menu 
+            <block.preview.menu 
                 v-if="block.tag === 'menu' && block.hasOwnProperty('blocks')"
                 :key="block.id"
                 :el="block"/>
+
+            <block.preview.form
+                v-if="block.tag === 'form'"
+                :key="block.id"
+                :form="block"/>
+
+            <block.popup
+                :key="block.id" 
+                :ref="block.id" 
+                v-if="block.type === 'popup'" 
+                :doc="block"/>
 
             <!--
            <moka-slider 
@@ -62,14 +74,7 @@
                 :doc="block" 
                 :editor="true"/>
                
-            <moka-popup
-                :key="block.id" 
-                :ref="block.id" 
-                v-if="block && block.hasOwnProperty('popup')" 
-                :develop="true" 
-                :embeded="true" 
-                :doc="block" 
-                :editor="true"/>
+            
             
             
             <moka-loop 
@@ -109,10 +114,11 @@ const plugins = [ScrollTrigger];
 
 export default {
     name: 'BlockPreviewContainer',
-    components: {
-        'block-preview-menu' : () => import ( './block.preview.menu.vue' ) ,
-        'block-element' : () => import ( './block.element.vue')//.component.vue' )
-    },
+    // components: {
+    //     'block-preview-menu' : () => import ( './block.preview.menu.vue' ) ,
+    //     'block-element' : () => import ( './block.element.vue'),//.component.vue' )
+    //     'block-form' : () => import ( './block.preview.form.vue' )
+    // },
     //components: { MokaElement , MokaSlider , draggable , MokaFlipbox , MokaPopup , MokaPluginsWrapper , MokaLoop , MokaMenu , MokaMenuResponsive, BlockCarousel ,
     //'block-preview-menu' : () => import ( './block.preview.menu.vue' ) ,
     //'block-slides'       : () => import ( '@/components/plugins/slides/slides.vue')

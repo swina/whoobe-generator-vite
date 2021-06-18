@@ -22,8 +22,10 @@ const textSizes = [ '','text-xs' , 'text-sm' , 'text-base' , 'text-lg' , 'text-x
 
 
 function cssResponsive ( classe ){
+
     if ( typeof classe === 'object' ) classe = classe.css
     if ( !classe || typeof classe === 'undefined' )  return ''
+    return classe
     let allCss = classe.split(' ')
     let responsiveCss = ''
     allCss.forEach ( css => {   
@@ -123,6 +125,7 @@ export default {
     Vue.prototype.$cssResponsive = ( classe = '') => {
         if ( typeof classe === 'object' ) classe = classe.css
         if ( !classe || typeof classe === 'undefined' )  return ''
+        return classe
         let allCss = classe.split(' ')
         let responsiveCss = ''
         allCss.forEach ( css => {   

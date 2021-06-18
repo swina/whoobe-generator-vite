@@ -41,7 +41,7 @@ export default {
                 console.log ( this.elementAction )
                 this.elementAction = { action:  'popup' , value: this.el.link.split('?')[1] }
                 if ( this.elementAction ){
-                    this.moka.popup ?
+                    this.$store.state.popup ?
                         this.$store.dispatch ( 'popup' , null ) :
                             this.$store.dispatch ( this.elementAction.action , this.elementAction.value )
                 } else {

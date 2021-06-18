@@ -1,4 +1,7 @@
 import Vue from 'vue'
+import store from '../../public/store'
+
+import vuestore from '../store/index.js'
 
 import PluginWrapper from '../components/common/plugin.wrapper.vue'
 Vue.component ( 'plugin-wrapper' , PluginWrapper )
@@ -15,7 +18,9 @@ export default {
         Vue.prototype.$randomID = ( prefix = 'whoobe' ) => {
             return prefix + '-' + Math.random().toString(36).substr(2, 5)
         }
-
+        Vue.prototype.$message = (msg) => {
+            vuestore.dispatch('message',msg )
+        }
         Vue.prototype.$hasProp = ( obj , prop) => {
             if ( !obj || !prop ) return null
             return hasProp ( obj , prop )

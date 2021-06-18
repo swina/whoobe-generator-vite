@@ -15,7 +15,7 @@ export default {
         categories: null
     }),
     mounted(){
-        this.categories = this.$store().categories.data
+        this.categories = this.$shop().categories.data
         // fetch(import.meta.env.VITE_API_URL + 'categories?$limit=50&type=product&$sort[name]=1')
         //     .then ( res => res.json() )
         //     .then ( categories => {

@@ -1,8 +1,8 @@
 <template>
-    <span>
+    <!-- <span> -->
         <component  v-if="el && !el.hasOwnProperty('plugin')" :ref="el.id" :is="component" :style="el.style" :el="el" :child="child" :attrib="$attrs"/> 
-        <plugin-wrapper v-if="el && el.hasOwnProperty('plugin')" :block="el"  :plugin="el.plugin" :component="el.plugin"/>
-    </span>
+        <!-- <plugin-wrapper v-if="el && el.hasOwnProperty('plugin')" :block="el"  :plugin="el.plugin" :component="el.plugin"/>
+    </span> -->
 </template>
 
 <script>
@@ -14,11 +14,13 @@ import MokaIframe from './elements/moka.iframe.vue'
 import MokaSvg from './elements/moka.svg.vue'
 import MokaImg from './elements/moka.img.vue'
 import MokaIcon from './elements/moka.icon.vue'
+import IconExtra from '../common/IconExtra.vue'
 import MokaInput from './elements/moka.input.vue'
 import MokaTextarea from './elements/moka.textarea.vue'
 import MokaSimpleSvg from './elements/moka.simple.svg.vue'
+
 export default {
-    name: 'BlockElementSelector',
+    name: 'BlockElementRender',
     components: {
         MokaText,
         MokaVideo,
@@ -29,6 +31,7 @@ export default {
         MokaInput,
         MokaTextarea,
         MokaSimpleSvg,
+
         //MokaSnipcartAddToCart,
         //MokaPluginWrapper
     },
@@ -86,15 +89,8 @@ export default {
                 this.child = MokaAudio
                 return el.link ? MokaLink : MokaAudio
             }
-            //if ( el.type === 'svg'  ){
-            //    this.child = MokaSvg
-            //    return el.link ? MokaLink : MokaSvg
-            //}
-            if ( (el.element === 'img')  && el.image && el.image.ext === '.svg' ) {
-                this.child = MokaSimpleSvg
-                return el.link ? MokaLink : MokaSimpleSvg    
-            }
-            if ( el.element === 'img' && el.image && el.image.url && el.image.ext != '.svg' && el.image.ext != '.mp4' ) {
+            
+            if ( el.element === 'img' && el.image && el.image.url && el.image.ext != '.mp4' ) {
                 this.child = MokaImg
                 return el.link ? MokaLink : MokaImg
             }
@@ -102,12 +98,30 @@ export default {
                 this.child = MokaIcon
                 return el.link ? MokaLink : MokaIcon
             }
-            if ( el.element === 'menu' ){
-                return MokaMenu
+            if ( el.tag === 'iconify' ){
+                this.child = MokaIcon
+                return el.link ? MokaLink : IconExtra
             }
-            if ( el.tag === 'input' && el.type!='button' ){
+            if ( el.element === 'menu' ){
+                return () => import ( './elements/moka.menu.vue' )
+            }
+            if ( el.tag === 'input' && el.type!='button' && el.element != 'select' ){
+                if ( el.type === 'checkbox' ){
+                    if ( el.display === 'toggle' ){
+                        return () => import ( './elements/moka.toggle.vue' )
+                    }
+                    return () => import ( './elements/moka.input.vue' )
+                }
                 return MokaInput
             } 
+            if ( el.element === 'select' ){
+                if ( el.display === 'select' )
+                    return () => import ( './elements/moka.select.vue' )
+                if ( el.display === 'chip' )
+                    return () => import ( './elements/moka.chip.vue' )
+                if ( el.display === 'list' )
+                    return () => import ( './elements/moka.list.vue' ) 
+            }
             if ( el.element === 'textarea' ){
                 return MokaTextarea
             }

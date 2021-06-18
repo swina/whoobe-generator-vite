@@ -33,6 +33,7 @@ module.exports = {
       gray: colors.gray,
       blue: colors.blue,
       teal: colors.teal,
+      yellow: colors.yellow,
       green: colors.green,
       orange: colors.orange,
       red: colors.red,
@@ -80,6 +81,13 @@ module.exports = {
       '12' : '1rem',
       '16' : '1.25m',
       '20' : '1.50rem'
+    },
+    blur: {
+      '1' : '1px',
+      '2' : '2px',
+      '3' : '3px',
+      '4' : '4px',
+      '5' : '5px',
     },
       fontFamily: {
 

@@ -105,8 +105,8 @@
 </template>
 
 <script>
-import BlockPreviewElement from '../moka.element.component'
-import BlockPreviewSingleContainer from '../moka.menu.container'
+import BlockPreviewElement from '../block.element.component.vue'
+import BlockPreviewSingleContainer from '../block.menu.container.vue'
 export default {
     name: 'BlockPreviewMenu',
     props: ['el'],

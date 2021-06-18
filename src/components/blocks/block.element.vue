@@ -32,7 +32,7 @@
 
             <!--<img :ref="element.id" v-if="el.element === 'img' && !el.image" src="../assets/no-image.png" :class="$cssResponsive(el.css)"/>-->
             
-            <input :type="el.type" v-if="el.tag === 'input' && el.type!='button'" :class="$cssResponsive(el.css)" :value="el.content" :placeholder="el.required?'required!':''"/><sup v-if="el.required" class="ml-1 nuxpresso-element-required">*</sup>
+            <input :type="el.type" :name="el.name" v-if="el.tag === 'input' && el.type!='button'" :class="$cssResponsive(el.css)" :value="el.content" :placeholder="el.required?'required!':''"/><sup v-if="el.required" class="ml-1 nuxpresso-element-required">*</sup>
 
             <!-- icon -->
             <i v-if="el.tag==='icon' && !el.link" :class="'material-icons moka-icons ' + $cssResponsive(el.css)">{{el.content}}</i>

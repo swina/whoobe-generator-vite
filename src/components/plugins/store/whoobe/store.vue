@@ -212,11 +212,11 @@ export default {
             // })
         },
         async qry(){
-            console.log ( this.$store() )
-            this.products = this.$store().products.data
-            this.allProducts = this.$store().products.data
-            this.total = this.$store().products.total
-            this.allVariations = this.$store().variations.data
+            console.log ( this.$shop() )
+            this.products = this.$shop().products.data
+            this.allProducts = this.$shop().products.data
+            this.total = this.$shop().products.total
+            this.allVariations = this.$shop().variations.data
 
             // fetch(import.meta.env.VITE_API_URL + 'products?$limit=100&$skip=' + this.start + '&type=product')
             //     .then ( res => res.json())

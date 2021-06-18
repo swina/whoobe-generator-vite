@@ -9,13 +9,17 @@
                         <source :src="block.image.url"/>
                     </video>
                 </div>
-                <block-container 
+                <block.preview.container 
                     :key="block.id" 
-                    v-if="block && block.type === 'grid' || block.type === 'flex' || block.type === 'slides'"
+                    v-if="block && (block.type === 'grid' || block.type === 'flex' || block.type === 'slides') && block.type != 'popup'"
                     :doc="block" 
                     :level="b+1" 
                     :coords="b" 
                     />
+                <block.popup v-if="block.type==='popup'"
+                    :key="block.id"
+                    :ref="block.id"
+                    :doc="block"/>
             </template>
         </span>
         <!-- <div whoobe-global-plugins v-if="plugins">
@@ -23,22 +27,11 @@
                 <plugin-wrapper :settings="plugin.editor.settings"  :block="null"  :plugin="plugin" :component="plugin.component"/>
             </template>
         </div> -->
-        
             
     </div>
 </template>
 
 <script>
-//import MokaElement from '@/components/editor/preview/moka.element'
-//import MokaContainer from '@/components/editor/preview/moka.preview.container'
-//import MokaFlex from '@/components/editor/preview/moka.editor.flex'
-//import MokaGrid from '@/components/editor/preview/moka.editor.grid'
-//import MokaSlider from '@/components/blocks/preview/components/moka.slider'
-//import MokaPluginWrapper from '@/components/Plugins.Wrapper'
-//import MokaLoop from '@/components/editor/preview/moka.preview.loop'
-//import MokaPopup from '@/components/editor/preview/moka.popup'
-//import MokaArticlesLoop from '@/components/editor/moka.preview.articles.loop'
-//import BlockPreviewSlides from '@/components/plugins/slides/slides.vue'
 
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -57,19 +50,9 @@ export default {
         previewWidth: 'w-screen'
     }),
     props: [ 'doc' ],
-    components: {
-        'block-container'           : () => import ( './block.preview.container.vue') ,
-
-        //BlockPreviewSlides,
-        //MokaSlider ,
-        // MokaContainer,
-        // MokaFlex,
-        // MokaGrid,
-        // MokaElement,
-        // MokaPluginWrapper,
-        // MokaLoop,
-        // MokaPopup
-    },
+    // components: {
+    //     'block-container'           : () => import ( './block.preview.container.vue') ,
+    // },
     computed:{
         animations(){
             

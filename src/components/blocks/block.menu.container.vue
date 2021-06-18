@@ -8,7 +8,7 @@
        
         <template v-for="(block,b) in doc.blocks">
              
-            <block-element
+            <block.element
                 @click="elementAction"
                 v-if="block && !block.hasOwnProperty('blocks')"
                 :key="block.id"
@@ -32,7 +32,7 @@
                 :embeded="true" 
                 :doc="block"/>
                 -->
-            <moka-plugins-wrapper 
+            <plugin.wrapper
                 :key="block.id"
                 v-if="block && block.type==='plugin' && block.hasOwnProperty('blocks')" 
                 :settings="block.plugin.editor.settings"  
@@ -55,7 +55,7 @@ const plugins = [ScrollTrigger];
 
 export default {
     name: 'BlockMenuContainer',
-    components: { BlockElement },//  , MokaFlipbox , MokaPluginsWrapper },
+    //components: { BlockElement },//  , MokaFlipbox , MokaPluginsWrapper },
     props: [ 'doc'  ],
     computed:{
         animations(){
