@@ -21,6 +21,7 @@
   "devDependencies": {
     "@iconify/iconify": "^2.0.2",
     "autoprefixer": "^10.2.6",
+    "node-fetch": "^2.6.1",
     "postcss": "^8.3.0",
     "tailwindcss": "^2.1.4",
     "vite": "^2.0.5",

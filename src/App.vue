@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <block-preview :doc="page.component.json"/>
+    <block-preview v-if="page" :doc="page.component.json"/>
     <transition name="fade">
         <div style="transform: translateX(-50%);left:50%;" class="border-l-4 border-blue-500 fixed bottom-0 m-auto shadow-xl mb-12 bg-white text-gray-800 text-base p-4 w-1/2  z-highest" v-if="message">   
         {{ message }}
@@ -10,18 +10,22 @@
 </template>
 
 <script>
-import Page from '../config.json'
+//import Page from '../config.json'
+//var pg
 export default {
   name: 'Whoobe',
   data:()=>({
     message: '',
+    whoobe: null
   }),
-  metaInfo: {
-    title: Page.component.hasOwnProperty('seo') && Page.component.seo.title ? Page.component.seo.title : 'Whoobe Landing Page',
-    titleTemplate: '%s | Whoobe Landing Page',
-    meta : [
-      { vmid: 'description', name: 'description' , content: Page.component.hasOwnProperty('seo') && Page.component.seo.description ? Page.component.seo.description : 'Whoobe Landing Pages visual builder' }
-    ]
+  metaInfo(){
+    return  {
+     title: this.whoobe ? this.whoobe.component.seo.title : 'Whoobe' ,
+     titleTemplate: '%s | Whoobe Landing Pages',
+     meta : [
+       { vmid: 'description', name: 'description' , content: this.whoobe ? this.whoobe.component.seo.description : 'Whoobe Landing Pages Visual Builder'}
+     ]
+    }
   },
   components: {
     'block-preview' : () => import ( './components/blocks/block.preview.vue' )
@@ -43,13 +47,20 @@ export default {
   },
   computed:{
     page(){
-      return Page
+      return this.whoobe // Page
     }
   },
   methods: {
     setMessage(msg){
       this.message = msg
     },
+  },
+  beforeMount(){
+    fetch ( import.meta.env.VITE_API_URL + 'config.json' )
+        .then ( res => res.json() )
+        .then ( page => {
+          this.whoobe = page 
+        })
   },
 };
 </script>

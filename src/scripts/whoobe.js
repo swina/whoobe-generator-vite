@@ -62,7 +62,7 @@ function cssResponsive ( classe ){
 }
 
 function returnURL (){
-    let url = import.meta.env.MODE === 'production' ?
+    let url = import.meta.env.VITE_CLOUD ? import.meta.env.VITE_API_URL : import.meta.env.MODE === 'production' ?
             '' : import.meta.env.VITE_API_URL 
     return url
 }
