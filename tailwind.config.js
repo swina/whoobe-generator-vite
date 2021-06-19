@@ -4,37 +4,9 @@ const colors = require('tailwindcss/colors')
 //var purgeSafeList = [/^grid/,/^grid-cols-/,/^flex/,/^col-span-/,/^md:grid/,/^md:grid-cols/,/^md:flex-/]
 //,/^md:p/,/^md:m/,/^from-/,/^to-/,/^via/
 //var pageSafeList = cssToPurge.purge[0].split(',')
-const options = {
-  safelist : require('./purge.js').purge[0].split(',')
-}
-const fetch = require ( 'node-fetch' )
 
-const { defineConfig, loadEnv } = require('vite');
-
-process.env = {...process.env, ...loadEnv( 'production' , process.cwd())};
-
-console.log ( process.env )
-// async function purge () {
-//   const purgeCSS = await fetch ( process.env.VITE_API_URL + 'config.json' )
-//   .then ( res => {
-//     res.json() 
-//     console.log ( res )
-//   })
-//   .then ( data => { 
-//     console.log ( data )
-//     return data 
-//   })
-//   return purgeCSS
-// }
-
-// module.exports = ({ command, mode }) => {
-//   process.env = {...process.env, ...loadEnv( mode, process.cwd())};
-//   const myCSS = await purge()
-//   console.log ( myCSS )
-//   return {
-    
-module.exports =  {
-  purge: {
+module.exports = {
+    purge: {
     //enabled: true,
     content : [
       './src/**/*.html',
@@ -42,15 +14,8 @@ module.exports =  {
       './src/**/*.js',
     ],
     options: {
-      safelist: require('./config.json').purge
-      // async () => { 
-      //   const purgeCSS = await fetch ( process.env.VITE_API_URL + '/config.json' )
-      //     .then ( res => res.json()  )
-      //     .then ( data => { 
-      //       console.log ( data )
-      //       return data.purge 
-      //     } )
-      //   return purgeCSS
+      safelist: require('./project.json').purge
+      //require('./config.json').purge
       // } //require('./config.json').purge  //require('./config.json').purge //require('./purge.js').purge[0].split(',')
     }
   },
@@ -251,6 +216,5 @@ module.exports =  {
     extend: {},
   },
   plugins: [],
-  }
-
+ }
 
