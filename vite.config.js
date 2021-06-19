@@ -23,7 +23,7 @@ async function fonts(){
 export default async ({ command, mode }) => {
   process.env = {...process.env, ...loadEnv(mode, process.cwd())};
   const page = await fonts()
-  return defineConfig({
+  return {
     plugins: [
       createVuePlugin(),
       ViteComponents({ deep:true }),
@@ -33,10 +33,5 @@ export default async ({ command, mode }) => {
         },
       }),
     ],
-    define : {
-      'process.env.VITE_PURGE_CSS' : JSON.stringify(page.purge)
-    }
-      
-    
-  })
+  }
 };
