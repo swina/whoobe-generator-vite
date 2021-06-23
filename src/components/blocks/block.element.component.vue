@@ -17,7 +17,7 @@ import MokaIcon from './elements/moka.icon.vue'
 import IconExtra from '../common/IconExtra.vue'
 import MokaInput from './elements/moka.input.vue'
 import MokaTextarea from './elements/moka.textarea.vue'
-import MokaSimpleSvg from './elements/moka.simple.svg.vue'
+//import MokaSimpleSvg from './elements/moka.simple.svg.vue'
 
 export default {
     name: 'BlockElementRender',
@@ -30,7 +30,7 @@ export default {
         MokaImg,
         MokaInput,
         MokaTextarea,
-        MokaSimpleSvg,
+        //MokaSimpleSvg,
 
         //MokaSnipcartAddToCart,
         //MokaPluginWrapper
@@ -94,18 +94,18 @@ export default {
                 this.child = MokaImg
                 return el.link ? MokaLink : MokaImg
             }
-            if ( el.tag === 'icon' || el.tag === 'icon_bt' ){
-                this.child = MokaIcon
-                return el.link ? MokaLink : MokaIcon
-            }
+            // if ( el.tag === 'icon' || el.tag === 'icon_bt' ){
+            //     this.child = MokaIcon
+            //     return el.link ? MokaLink : MokaIcon
+            // }
             if ( el.tag === 'iconify' ){
-                this.child = MokaIcon
+                this.child = IconExtra
                 return el.link ? MokaLink : IconExtra
             }
             if ( el.element === 'menu' ){
                 return () => import ( './elements/moka.menu.vue' )
             }
-            if ( el.tag === 'input' && el.type!='button' && el.element != 'select' ){
+            if ( el.tag === 'input' && el.type!='button' && el.element != 'select' && el.element != 'textarea' ){
                 if ( el.type === 'checkbox' ){
                     if ( el.display === 'toggle' ){
                         return () => import ( './elements/moka.toggle.vue' )

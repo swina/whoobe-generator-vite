@@ -26,6 +26,7 @@ Vue.use(VueGtag, {
     }
   });
 
+//import './registerServiceWorker.js'
 
 new Vue({
   store,

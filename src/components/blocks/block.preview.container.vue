@@ -7,8 +7,8 @@
         v-if="doc"
         :key="randomID"
         :class="classe(doc.css)" :style="doc.style + ' ' +  background(doc)" :ref="doc.id" >
-        <div videobg v-if="doc.image && (doc.image.ext==='.mp4' || doc.image.ext==='webm' || doc.image.url.indexOf('.mp4') > -1)" :class="'fixed z-0 ' + doc.css.css">  
-            <video playsinline :poster="doc.image.previewUrl" class="object-cover h-full w-full" autoplay loop>
+        <div videobg v-if="doc.image && (doc.image.ext==='.mp4' || doc.image.ext==='webm' || doc.image.url.indexOf('.mp4') > -1)" :class="'absolute inset-0 ' ">  
+            <video playsinline :poster="doc.image.previewUrl" class="object-cover object-center h-full w-full" autoplay loop>
                 <source :src="doc.image.url"/>
             </video>
         </div>
@@ -54,8 +54,7 @@
                 v-if="block.type === 'popup'" 
                 :doc="block"/>
 
-            <!--
-           <moka-slider 
+           <block.slider 
                 :key="block.id" 
                 :ref="block.id" 
                 v-if="block && (block.hasOwnProperty('slider') || block.type === 'slides')" 
@@ -63,6 +62,7 @@
                 :embeded="true" 
                 :doc="block" 
                 :editor="true"/>
+            <!--
             
             <moka-flipbox
                 :key="block.id" 
@@ -169,7 +169,7 @@ export default {
             if ( block.hasOwnProperty('gallery') && !block.gallery || !block.hasOwnProperty('gallery')){ 
                 let bgImage = ''
                 block.image && block.image.url?
-                    block.image && block.image.url && block.image.url.indexOf('.mp4') < 0 ? 
+                    block.image && block.image.url && !block.image.url.includes('.mp4') && !block.image.url.includes('.webm') ? 
                             bgImage = ' background-image:url(' + this.$imageURL(block.image) + ');' :
                                 null  : null
                 return bgImage

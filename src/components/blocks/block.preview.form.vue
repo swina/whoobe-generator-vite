@@ -3,7 +3,7 @@
         :key="key"
         :action="action"
         :id="getID" 
-        name="mc-embedded-subscribe-form"
+        :name="formName"
         @submit="submitPrevent($event)">
         <template v-for="block in form.blocks">
             <block.element.component
@@ -38,6 +38,15 @@ export default {
         },
         getID(){
             return this.form.hasOwnProperty('mailchimp') ? 'mc-embedded-subscribe-form' : this.form.id
+        },
+        formName(){
+            return this.form.hasOwnProperty('mailchimp') ?
+                'mc-embedded-subscribe-form' :
+                        this.form.name 
+        },
+        isNetlify(){
+            return this.form.hasOwnProperty('netlify') && this.form.netlify ?
+                true : false
         }
     },
     methods:{
@@ -62,9 +71,6 @@ export default {
                     body : data ,
                     mode: 'no-cors'
                 }).then ( res => {
-                    if (!res.ok) {
-                       throw Error(response.statusText);
-                    }
                     this.$message ( this.form.success )
                     this.key = this.$randomID()
                 }).catch ( error => {

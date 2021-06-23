@@ -1,8 +1,9 @@
+import { async } from 'regenerator-runtime'
 import Vue from 'vue'
-import Icon from '../components/common/icon.vue'
-Vue.component('icon',Icon)
-import SimpleSvg from 'vue-simple-svg'
-Vue.component ( 'simple-svg' , SimpleSvg )
+//import Icon from '../components/common/icon.vue'
+//Vue.component('icon',Icon)
+//import SimpleSvg from 'vue-simple-svg'
+//Vue.component ( 'simple-svg' , SimpleSvg )
 
 //import moment from 'moment'
 const pixels = [ 1 , 4 , 8 , 12 , 16 , 20 , 24 , 32 , 40 , 48, 64 , 80 , 96 , 128 , 160 , 192 , 224 , 256 ]
@@ -62,8 +63,8 @@ function cssResponsive ( classe ){
 }
 
 function returnURL (){
-    let url = import.meta.env.VITE_CLOUD ? import.meta.env.VITE_API_URL : import.meta.env.MODE === 'production' ?
-            '' : import.meta.env.VITE_API_URL 
+    let url = import.meta.env.MODE === 'production' ?
+                    '' : import.meta.env.VITE_API_URL 
     return url
 }
 

@@ -4,11 +4,11 @@
         <span v-if="!doc.hasOwnProperty('slider')">
 
             <template v-for="(block,b) in doc.blocks">
-                <div videobg v-if="block.image && (block.image.ext==='.mp4' || block.image.ext==='webm')" :class="'absolute ' + block.css.css">  
+                <!-- <div videobg v-if="block.image && (block.image.ext==='.mp4' || block.image.ext==='webm')" :class="'absolute ' + block.css.css">  
                     <video playsinline :poster="block.image.previewUrl" class="object-cover h-full w-full" autoplay loop>
                         <source :src="block.image.url"/>
                     </video>
-                </div>
+                </div> -->
                 <block.preview.container 
                     :key="block.id" 
                     v-if="block && (block.type === 'grid' || block.type === 'flex' || block.type === 'slides') && block.type != 'popup'"
