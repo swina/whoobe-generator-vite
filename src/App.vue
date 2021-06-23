@@ -10,7 +10,7 @@
 </template>
 
 <script>
-//import Page from '../config.json'
+import Page from '../config.json'
 //var pg
 export default {
   name: 'Whoobe',
@@ -56,11 +56,11 @@ export default {
     },
   },
   beforeMount(){
-    fetch ( import.meta.env.VITE_API_URL + 'config.json' )
-        .then ( res => res.json() )
-        .then ( page => {
-          this.whoobe = page 
-        })
+    // fetch ( import.meta.env.VITE_API_URL + 'config.json' )
+    //     .then ( res => res.json() )
+    //     .then ( page => {
+          this.whoobe = Page 
+    //    })
   },
 };
 </script>
