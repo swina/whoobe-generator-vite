@@ -73,10 +73,10 @@ function imageURL ( image ){
     //return image.url
     let url = ''
         !image.hasOwnProperty('url') ?
-            image.includes('//') ? url = image : url = returnURL() + image.substring(1) :
+            image.includes('//') ? url = image : url = returnURL() + image :
                 image.url.includes('//') ? 
                     url = image.url :
-                        url = returnURL() + image.url.substring(1) 
+                        url = returnURL() + image.url
     return url
 }
 

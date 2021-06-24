@@ -21,7 +21,7 @@
             <!-- <block-preview-container -->
             <block.preview.container
                 :key="block.id"
-                v-if="block && !block.hasOwnProperty('slider') && block.hasOwnProperty('blocks') && !block.hasOwnProperty('items') && !block.hasOwnProperty('image_flip') && !block.hasOwnProperty('popup') && block.type!='plugin' && !block.hasOwnProperty('collection') && block.tag != 'menu' && block.type !='slides' && block.tag != 'form'" @action="elementAction" 
+                v-if="block && !block.hasOwnProperty('slider') && block.hasOwnProperty('blocks') && !block.hasOwnProperty('items') && !block.hasOwnProperty('image_flip') && !block.hasOwnProperty('popup') && block.type!='plugin' && !block.hasOwnProperty('collection') && block.tag != 'menu' && block.type !='slides' && block.tag != 'form' && !block.hasOwnProperty('plugin')" @action="elementAction" 
                 :data="$attrs.data||null"
                 :currency="$attrs.currency||null"
                 :doc="block" :animation="$attrs.animation"/>
@@ -62,6 +62,8 @@
                 :embeded="true" 
                 :doc="block" 
                 :editor="true"/>
+
+            <plugin-wrapper v-if="block && block.hasOwnProperty('plugin')" :block="block"  :plugin="block.plugin" :component="block.plugin"/>
             <!--
             
             <moka-flipbox

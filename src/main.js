@@ -1,10 +1,14 @@
 import Vue from 'vue';
 import App from './App.vue';
+import router from './router/index.js'
+
 import './index.css'
 import store from './store'
-import config from '../config.json'
 
-import shop from '../store.js'
+// whoobe page from config.json
+import config from '../config.json'
+// whoobe shop
+import shop from '../shop.json'
 Vue.prototype.$shop = () => { return shop }
 
 import Utils from './scripts/utils.js'
@@ -36,5 +40,6 @@ const updateSW = registerSW({
 
 new Vue({
   store,
+  router,
   render: (h) => h(App),
 }).$mount('#app');

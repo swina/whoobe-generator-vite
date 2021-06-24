@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import store from '../../public/store'
 
 import vuestore from '../store/index.js'
 
@@ -43,18 +42,18 @@ export default {
             if ( hasProp ( image , 'previewUrl' ) && image.previewUrl ){
                 image.previewUrl.includes ( '//' )  ?
                     url = image.previewUrl :
-                    url = ( window.localStorage.getItem('whoobe-cms') || import.meta.env.VITE_API_URL ) + image.previewUrl.substring(1) 
+                    url = ( window.localStorage.getItem('whoobe-cms') || import.meta.env.VITE_API_URL ) + image.previewUrl 
                 return url 
             }
             if ( hasProp(image,'url') ){
                 image.url.includes('data:image') ? url = image.url :
                     image.url.includes('//') ? 
                         url = image.url : 
-                            url = ( window.localStorage.getItem('whoobe-cms') || import.meta.env.VITE_API_URL ) + image.url.substring(1) 
+                            url = ( window.localStorage.getItem('whoobe-cms') || import.meta.env.VITE_API_URL ) + image.url
             } else {
                 image.includes ( '//' ) ?
                     url = image :
-                    url = ( window.localStorage.getItem('whoobe-cms') || import.meta.env.VITE_API_URL ) + image.substring(1) 
+                    url = ( window.localStorage.getItem('whoobe-cms') || import.meta.env.VITE_API_URL ) + image 
             }
             if ( mode === 'bg' ) return 'background-image:url ( ' + url + ');'
             return url

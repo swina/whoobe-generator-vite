@@ -1,56 +1,58 @@
 <template>
-    <div class="" v-if="products && $attrs.plugin.settings">
-        <h1>STORE {{ $attrs.plugin.settings.general.css }}</h1>
+    <div class="" v-if="products && $attrs.plugin.settings" :key="createID()">
+        <!-- <h1>STORE {{ $attrs.plugin.settings.general.css }}</h1> -->
     <div class="relative" :class="$attrs.plugin.settings.general.css">
-        <div v-if="$attrs.plugin.settings.general.display.cart.enabled" class="w-full text-xs flex flex-row items-center justify-end snipcart-checkout">
+        <div v-if="$attrs.plugin.settings.general.display.cart.enabled" class="w-full text-xs flex flex-row items-center justify-end snipcart-checkout cursor-pointer">
             <span class="snipcart-items-count"></span>
             <icon :name="$attrs.plugin.settings.general.display.cart.name||'shooping_bag'" :class="$attrs.plugin.settings.general.display.cart.css"/>
             <!--<i class="material-icons">shopping_bag</i>-->
             <span class="snipcart-total-price"></span>  
         </div>
        
+        <div v-if="!$route.params.id">
+            <store-categories v-if="!current && $attrs.plugin.settings.loop.categories.enabled" :container="$attrs.plugin.settings.loop.categories.container" :css="$attrs.plugin.settings.loop.categories.css" @category="qryByCategory"/>
+            
+            <div class="flex flex-col md:flex-row" v-if="!current">
+                <p v-if="$attrs.plugin.settings.general.display.total.enabled" :class="$attrs.plugin.settings.general.display.total.css">{{ $attrs.plugin.settings.general.display.total.name }} {{total}}</p>
+                <input v-if="$attrs.plugin.settings.general.display.search.enabled" type="text" :class="$attrs.plugin.settings.general.display.search.css" :placeholder="$attrs.plugin.settings.general.display.search.name" v-model="search" @keydown="productSearch($event)"/><icon name="zoom" class="visible md:invisible"/>
+            </div>
 
-        <store-categories v-if="!current && $attrs.plugin.settings.loop.categories.enabled" :container="$attrs.plugin.settings.loop.categories.container" :css="$attrs.plugin.settings.loop.categories.css" @category="qryByCategory"/>
-        
-        <div class="flex flex-col md:flex-row" v-if="!current">
-            <p v-if="$attrs.plugin.settings.general.display.total.enabled" :class="$attrs.plugin.settings.general.display.total.css">{{ $attrs.plugin.settings.general.display.total.name }} {{total}}</p>
-            <input v-if="$attrs.plugin.settings.general.display.search.enabled" type="text" :class="$attrs.plugin.settings.general.display.search.css" :placeholder="$attrs.plugin.settings.general.display.search.name" v-model="search" @keydown="productSearch($event)"/><icon name="zoom" class="visible md:invisible"/>
-        </div>
+            <div v-if="!products.length"><h3>No products found!</h3></div>
 
-        <div v-if="!products.length"><h3>No products found!</h3></div>
-
-        <div v-if="!current" class="flex flex-col items-center justify-center" :class="$attrs.plugin.settings.loop.container">
-            <template v-for="(product,index) in products">
-                <div v-if="index>=start && index<(start+limit)" class="flex flex-col" :class="$attrs.plugin.settings.loop.css" @click="current=product,currentPrice=product.price,currentOption=product.optionValues,variations(product.sku)">
-                    <template v-for="field in $attrs.plugin.settings.loop.fields">
-                        
-                        <div :class="field.css" v-if="schema[field.name].type!='image_uri' && field.name !='add_to_cart'">
-                            <small class="mr-1" v-if="schema[field.name].type==='currency'">{{ $attrs.plugin.settings.general.currency }}</small>
-                            {{ schema[field.name].type==='currency' ? parseFloat(product[field.name]).toFixed(2) : product[field.name] }}
-                        </div>
-                        <div v-else>
-                            <img :src="productImage(product[field.name])" :class="field.css" v-if="field.name != 'add_to_cart'">
-                            <button v-if="field.name==='add_to_cart'" :class="field.css">Add to cart</button>
-                        </div>
+            <div v-if="!current" class="flex flex-col items-center justify-center" :class="$attrs.plugin.settings.loop.container">
+                <template v-for="(product,index) in products">
+                    <div v-if="index>=start && index<(start+limit)" class="flex flex-col" :class="$attrs.plugin.settings.loop.css" @click="current=product,currentPrice=product.price,currentOption=product.optionValues,variations(product.sku)">
+                    
+                        <template v-for="field in $attrs.plugin.settings.loop.fields">
+                            
+                            <div :class="field.css" v-if="schema[field.name].type!='image_uri' && field.name !='add_to_cart'">
+                                <small class="mr-1" v-if="schema[field.name].type==='currency'">{{ $attrs.plugin.settings.general.currency }}</small>
+                                {{ schema[field.name].type==='currency' ? parseFloat(product[field.name]).toFixed(2) : product[field.name] }}
+                            </div>
+                            <div v-else>
+                                <img :src="productImage(product[field.name])" :class="field.css" v-if="field.name != 'add_to_cart'">
+                                <button v-if="field.name==='add_to_cart'" :class="field.css">Add to cart</button>
+                            </div>
+                        </template>
+                    </div>
+                
+                </template>
+            </div>
+            <!-- PAGINATION -->
+            <div v-if="!current">
+                <div class="flex flex-row w-full items-center justify-center" v-if="$attrs.plugin.settings.general.display.navigation">
+                    <template v-for="page in pages">
+                        <div :class="$attrs.plugin.settings.general.display.navigation.css + ' ' + activePage(page)" @click="start=(page-1)*limit">{{ page }}</div>
                     </template>
                 </div>
-            
-            </template>
-        </div>
-        <!-- PAGINATION -->
-        <div v-if="!current">
-            <div class="flex flex-row w-full items-center justify-center" v-if="$attrs.plugin.settings.general.display.navigation">
-                <template v-for="page in pages">
-                    <div :class="$attrs.plugin.settings.general.display.navigation.css + ' ' + activePage(page)" @click="start=(page-1)*limit">{{ page }}</div>
-                </template>
             </div>
         </div>
 
-
         <!-- SINGLE VIEW -->
         <div v-if="current" class="fixed inset-0 overflow-y-auto h-screen md:relative md:h-auto">
+                <button class="m-auto" @click="current=null,$router.push('/')">Back to Shop</button>
             <div :class="$attrs.plugin.settings.single.css + ' '  + $attrs.plugin.settings.single.container">
-                <icon name="close" class="absolute right-0 top-0 text-3xl" @click="current=null"/>
+                <icon name="close" class="absolute right-0 top-0 text-3xl" @click="current=null" v-if="!$route.params.id"/>
                 <div v-for="n in parseInt($attrs.plugin.settings.single.cols)">    
 
                     <template v-for="field in $attrs.plugin.settings.single.fields">
@@ -99,13 +101,15 @@
                             :data-item-price="currentPrice"
                             :data-item-name="current.name + ' ' + currentOption"
                             :data-item-description="currentOption"
-                            :data-item-url="'/store/product/' + current._id"> 
+                            :data-item-url="'/shop/' + current.slug"> 
                         Add to cart</button>
                         
                     </template>
+                   
                 </div>
             </div>
         </div>
+                
         
         
     </div>
@@ -213,10 +217,20 @@ export default {
         },
         async qry(){
             console.log ( this.$shop() )
-            this.products = this.$shop().products.data
             this.allProducts = this.$shop().products.data
-            this.total = this.$shop().products.total
+            this.products = this.$shop().products.data
             this.allVariations = this.$shop().variations.data
+            this.total = this.$shop().products.total
+            if ( this.$route.params ){
+                this.createID()
+                console.log ( this.$route.params.id )
+                this.current = this.allProducts.filter ( product => {
+                    return product.slug === this.$route.params.id
+                })[0]
+                this.variations ( this.current.sku )
+                this.currentPrice = this.current.price 
+                this.currentOption = this.currrent.optionValues
+            }
 
             // fetch(import.meta.env.VITE_API_URL + 'products?$limit=100&$skip=' + this.start + '&type=product')
             //     .then ( res => res.json())
@@ -289,6 +303,9 @@ export default {
             if ( (page-1) * this.limit === this.start ){
                 return 'animate-pulse'
             }
+        },
+        createID(){
+            return this.$randomID()
         }
     },
     mounted(){
@@ -303,11 +320,21 @@ export default {
             this.settings = this.$attrs.plugin.settings
             this.schema = model
             this.qry()
+
         //} else {
         //    this.products = products
         //    this.total = products.length
         //}
-    }
+    },
+    metaInfo(){
+        return  {
+        title: this.current ? this.current.name : 'Whoobe' ,
+        titleTemplate: '%s | Whoobe Landing Pages',
+        meta : [
+        { vmid: 'description', name: 'description' , content: this.current ? this.current.description : 'Whoobe Landing Pages Visual Builder'}
+        ]
+        }
+    },
 }
 </script>
 
