@@ -12,9 +12,10 @@
                 <block.preview.container 
                     :key="block.id" 
                     v-if="block && (block.type === 'grid' || block.type === 'flex' || block.type === 'slides') && block.type != 'popup'"
-                    :doc="block" 
+                    :doc="block"
                     :level="b+1" 
-                    :coords="b" 
+                    :coords="b"
+                    :article="$attrs.article" 
                     />
                 <block.popup v-if="block.type==='popup'"
                     :key="block.id"
@@ -40,24 +41,41 @@ import gsapEffects from '../../scripts/animations'
 
 gsap.registerPlugin ( ScrollTrigger )
 const plugins = [ScrollTrigger];
-
+import { mapState } from 'vuex'
+import config from '../../../project.json'
 export default {
     name: 'WhoobePreview',
     data:()=>({
         printScreen: null,
         refreshID: null,
-        plugins: [],
         previewWidth: 'w-screen'
     }),
     props: [ 'doc' ],
     // components: {
     //     'block-container'           : () => import ( './block.preview.container.vue') ,
     // },
+    metaInfo(){
+        return  {
+            title: this.whoobe.meta.title || this.whoobe.article.seo_title ,
+            //titleTemplate: '%s',
+            meta : [
+                { 
+                    vmid: 'description', 
+                    name: 'description' , 
+                    content: this.whoobe.meta.description || this.whoobe.article.seo_description
+                }
+            ]
+        }
+    },
     computed:{
+        ...mapState( ['whoobe'] ),
         animations(){
             
             return gsapEffects
         },
+        plugins(){
+            return config.plugins
+        }
     },
     watch:{
         refreshID(){
@@ -188,12 +206,14 @@ export default {
         }
     },
     mounted(){
-        console.log ( 'Preview mounted' , this.doc.id )
+        console.log ( config )
         window.resizeTo ( window.screen.availWidth , window.screen.availHeight )
         let lang = document.querySelector('html')
         lang.setAttribute ( 'lang' , navigator.language )
         window.scrollTo(0,0)
         this.refreshID = this.$randomID()
+
+
         this.doc.blocks.forEach ( block => {
             if ( block.hasOwnProperty('gsap') && block.gsap.animation  ){
                 this.animate(block, block.id)

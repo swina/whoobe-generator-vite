@@ -1,12 +1,16 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Preview from '../components/blocks/block.preview.vue'
+//import Preview from '../components/blocks/block.preview.vue'
+import Home from '../components/Home.vue'
 import Product from '../components/plugins/store/whoobe/product.vue'
+import Articles from '../components/plugins/articles/articles.vue'
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/', name: 'Home' , component: Preview },
+  { path: '/', name: 'Home' , component: Home } , //Preview },
   { path: '/shop/:id', name: 'Product' , component: Product },
+  { path: '/page/:slug' , name: 'Page' , component: Articles },
+  { path: '/:slug' , name: 'Page' , component: Articles },
   // { path: '/:path(.*)', component: Preview },
 ]
 

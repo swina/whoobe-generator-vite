@@ -35,7 +35,7 @@ export default {
         },
         content(){
             return this.$attrs.hasOwnProperty('attrib') && this.$attrs.attrib.data ?
-                this.price || this.$attrs.attrib.data[this.el.label] : this.el.content
+                this.price || this.$attrs.attrib.data[this.el.label] : this.el.content.replaceAll(import.meta.env.VITE_API_URL,'/')
         },
         classe(){
             return this.el.type === 'button' ? this.el.css : this.$cssResponsive(this.el.css)

@@ -127,10 +127,12 @@ export default {
             }
             
             if ( el.tag === 'article' && el.element != 'img' ){
-                console.log ( 'article => ' , el.label )
+                
+                el.content = this.$store.state.whoobe.article[el.label]
                 return MokaText
             }
             if ( el.tag === 'article' && el.element === 'img' ){
+                el.image = this.$store.state.whoobe.article[el.label]
                 return MokaImg
             }
             if ( el.type === 'file' && el.link ){

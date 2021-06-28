@@ -3,7 +3,9 @@ const whoobe = {
         login: false,
         user: {},
         message: '',
-        popup: null
+        popup: null,
+        meta: null,
+        article: null
     },
     mutations: {
         login ( state , login ){
@@ -18,6 +20,12 @@ const whoobe = {
         message ( state , message ){
             state.message = message
         },
+        meta ( state , meta ){
+            state.meta = meta
+        },
+        article ( state , article ){
+            state.article = article
+        }
     },
     actions: {
         login( { commit } , login ){
@@ -32,6 +40,12 @@ const whoobe = {
         message( { commit } , message ){
             commit ( 'message' , message )
         },
+        meta ( {commit} , meta ){
+            commit ( 'meta' , meta )
+        },
+        article ( { commit } , article ){
+            commit ( 'article' , article )
+        }
     }
 
 }

@@ -5,6 +5,7 @@ import ViteFonts from 'vite-plugin-fonts'
 import { VitePWA } from 'vite-plugin-pwa'
 import fetch from 'node-fetch'
 import fs from 'fs-extra'
+import path from 'path'
 
 async function autoConfig(){ 
   //load configuration file from external resource (generate by CMS)
@@ -26,6 +27,10 @@ export default async ({ command, mode }) => {
   //get the fonts array
   const config = await autoConfig()
   return {
+    build: {
+      outDir: !config.target ? path.join(__dirname, "dist") : fs.ensureDir(config.target) ,
+      emptyOutDir: true
+    },
     plugins: [
       createVuePlugin(),
       ViteComponents({ deep:true }),
@@ -41,9 +46,9 @@ export default async ({ command, mode }) => {
             "background_color": "#ffffff",
             "display": "fullscreen",
             "start_url": "./",
-            "name": config.component.seo.title, //"Antonio Nardone - Webspecialist",
-            "short_name": config.component.seo.title,//"antonionardone.com",
-            "description": config.component.seo.description,//"Antonio Nardone Portfolio",
+            "name": config.seo.title, //"Antonio Nardone - Webspecialist",
+            "short_name": config.seo.title,//"antonionardone.com",
+            "description": config.description,//"Antonio Nardone Portfolio",
             "icons": [
                 {
                     "src": "/icon-192x192.png",
@@ -74,6 +79,7 @@ export default async ({ command, mode }) => {
             ]
         
         }
+        
       })
     ],
     server: {

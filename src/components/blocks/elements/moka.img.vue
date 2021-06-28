@@ -10,6 +10,7 @@ export default {
     computed:{
         hasImage(){
             if ( this.el && this.el.image && this.el.image.url ){
+                this.el.image.url.replace ( import.meta.env.VITE_API_URL , '/' )
                 return this.$imageURL(this.el.image)
             }
             return ''

@@ -24,6 +24,7 @@
                 v-if="block && !block.hasOwnProperty('slider') && block.hasOwnProperty('blocks') && !block.hasOwnProperty('items') && !block.hasOwnProperty('image_flip') && !block.hasOwnProperty('popup') && block.type!='plugin' && !block.hasOwnProperty('collection') && block.tag != 'menu' && block.type !='slides' && block.tag != 'form' && !block.hasOwnProperty('plugin')" @action="elementAction" 
                 :data="$attrs.data||null"
                 :currency="$attrs.currency||null"
+                :article="$attrs.article"
                 :doc="block" :animation="$attrs.animation"/>
             
             
@@ -31,10 +32,11 @@
                 @click="elementAction"
                 v-if="block && !block.hasOwnProperty('blocks') && block.type!='slides' && !block.hasOwnProperty('items') && block.type != 'popup'"
                 :key="block.id"
-                :data="$attrs.data||''"
+                :data="$attrs.data||null"
                 :dataset="doc.hasOwnProperty('data')?doc.data:null"
                 :currency="$attrs.currency||null"
                 :el="block"
+                :article="$attrs.article"
                 :coords="[b]"
                 :develop="false"/>
             

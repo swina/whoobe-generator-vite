@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <block-preview v-if="page" :doc="page.component.json"/>
+    <router-view/>
+    <!--<block-preview v-if="page" :doc="page.component.json"/>-->
     <transition name="fade">
         <div style="transform: translateX(-50%);left:50%;" class="border-l-4 border-blue-500 fixed bottom-0 m-auto shadow-xl mb-12 bg-white text-gray-800 text-base p-4 w-1/2  z-highest" v-if="message">   
         {{ message }}
@@ -18,15 +19,7 @@ export default {
     message: '',
     whoobe: null
   }),
-  metaInfo(){
-    return  {
-     title: this.whoobe ? this.whoobe.component.seo.title : 'Whoobe' ,
-     titleTemplate: '%s | Whoobe Landing Pages',
-     meta : [
-       { vmid: 'description', name: 'description' , content: this.whoobe ? this.whoobe.component.seo.description : 'Whoobe Landing Pages Visual Builder'}
-     ]
-    }
-  },
+  
   components: {
     'block-preview' : () => import ( './components/blocks/block.preview.vue' )
   },
@@ -47,6 +40,7 @@ export default {
   },
   computed:{
     page(){
+      this.$store.dispatch ( 'meta' , this.whoobe.seo )
       return this.whoobe // Page
     }
   },
@@ -56,11 +50,7 @@ export default {
     },
   },
   beforeMount(){
-    // fetch ( import.meta.env.VITE_API_URL + 'config.json' )
-    //     .then ( res => res.json() )
-    //     .then ( page => {
-          this.whoobe = Page 
-    //    })
+    this.whoobe = Page 
   },
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <div class="" v-if="products && $attrs.plugin.settings" :key="createID()">
+    <div class="" v-if="products && $attrs.plugin.settings">
         <!-- <h1>STORE {{ $attrs.plugin.settings.general.css }}</h1> -->
     <div class="relative" :class="$attrs.plugin.settings.general.css">
         <div v-if="$attrs.plugin.settings.general.display.cart.enabled" class="w-full text-xs flex flex-row items-center justify-end snipcart-checkout cursor-pointer">
@@ -9,7 +9,7 @@
             <span class="snipcart-total-price"></span>  
         </div>
        
-        <div v-if="!$route.params.id">
+        <div v-if="!$route.params.id" id="storeTop">
             <store-categories v-if="!current && $attrs.plugin.settings.loop.categories.enabled" :container="$attrs.plugin.settings.loop.categories.container" :css="$attrs.plugin.settings.loop.categories.css" @category="qryByCategory"/>
             
             <div class="flex flex-col md:flex-row" v-if="!current">
@@ -49,10 +49,10 @@
         </div>
 
         <!-- SINGLE VIEW -->
-        <div v-if="current" class="fixed inset-0 overflow-y-auto h-screen md:relative md:h-auto">
-                <button class="m-auto" @click="current=null,$router.push('/')">Back to Shop</button>
+        <div v-if="current">
+                <!-- <button class="m-auto" @click="current=null,$router.push('/')">Back to Shop</button> -->
             <div :class="$attrs.plugin.settings.single.css + ' '  + $attrs.plugin.settings.single.container">
-                <icon name="close" class="absolute right-0 top-0 text-3xl" @click="current=null" v-if="!$route.params.id"/>
+                <icon name="close" class="absolute right-0 top-0 mt-8 bg-black text-3xl cursor-pointer" @click="current=null" v-if="!$route.params.id"/>
                 <div v-for="n in parseInt($attrs.plugin.settings.single.cols)">    
 
                     <template v-for="field in $attrs.plugin.settings.single.fields">
@@ -102,7 +102,7 @@
                             :data-item-name="current.name + ' ' + currentOption"
                             :data-item-description="currentOption"
                             :data-item-url="'/shop/' + current.slug"> 
-                        Add to cart</button>
+                        {{ lang.add_to_cart }}</button>
                         
                     </template>
                    
@@ -180,8 +180,8 @@ export default {
     },
     watch:{
         start(){
+            this.scrollTop()
             return
-            //this.scrollTop()
                 this.search ? 
                     this.qrySearch(null) :
                         this.filter ?
@@ -221,7 +221,7 @@ export default {
             this.products = this.$shop().products.data
             this.allVariations = this.$shop().variations.data
             this.total = this.$shop().products.total
-            if ( this.$route.params ){
+            if ( this.$route.params.id ){
                 this.createID()
                 console.log ( this.$route.params.id )
                 this.current = this.allProducts.filter ( product => {
@@ -326,15 +326,15 @@ export default {
         //    this.total = products.length
         //}
     },
-    metaInfo(){
-        return  {
-        title: this.current ? this.current.name : 'Whoobe' ,
-        titleTemplate: '%s | Whoobe Landing Pages',
-        meta : [
-        { vmid: 'description', name: 'description' , content: this.current ? this.current.description : 'Whoobe Landing Pages Visual Builder'}
-        ]
-        }
-    },
+    // metaInfo(){
+    //     return  {
+    //     title: this.current ? this.current.name : 'Whoobe' ,
+    //     titleTemplate: '%s | Whoobe Landing Pages',
+    //     meta : [
+    //     { vmid: 'description', name: 'description' , content: this.current ? this.current.description : 'Whoobe Landing Pages Visual Builder'}
+    //     ]
+    //     }
+    // },
 }
 </script>
 

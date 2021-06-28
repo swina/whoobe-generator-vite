@@ -21,6 +21,9 @@ const pixelsAttrs = {
 }
 const textSizes = [ '','text-xs' , 'text-sm' , 'text-base' , 'text-lg' , 'text-xl' , 'text-2xl' , 'text-3xl' , 'text-4xl' , 'text-5xl' , 'text-6xl' , 'text-7xl' , 'text-8xl' , 'text-9xl' , 'text-10xl' , 'text-20xl']
 
+if (Notification.permission !== "granted"){
+   Notification.requestPermission();
+}
 
 function cssResponsive ( classe ){
 
