@@ -30,6 +30,7 @@
     "vite": "^2.0.5",
     "vite-plugin-components": "^0.11.1",
     "vite-plugin-fonts": "^0.2.2",
+    "vite-plugin-imagemin": "^0.3.2",
     "vite-plugin-pwa": "^0.8.1",
     "vite-plugin-radar": "^0.2.0",
     "vue-template-compiler": "^2.6.14"

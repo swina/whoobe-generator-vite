@@ -1,5 +1,6 @@
 const { createVuePlugin } = require('vite-plugin-vue2');
 import { loadEnv } from 'vite';
+import viteImagemin from 'vite-plugin-imagemin';
 import ViteComponents from 'vite-plugin-components'
 import ViteFonts from 'vite-plugin-fonts'
 import { VitePWA } from 'vite-plugin-pwa'
@@ -10,14 +11,16 @@ import path from 'path'
 async function autoConfig(){ 
   //load configuration file from external resource (generate by CMS)
   var project = await fetch ( process.env.VITE_API_URL + '/config.json' ).then ( res => res.json() ).then ( pr => { return pr })
+  var articles_template = await fetch ( process.env.VITE_API_URL + '/articles.json' ).then ( res => res.json() ).then ( pr => { return pr })
   if ( project ){
     //create local project file use by tailwind.config.js to purge
     fs.writeFileSync ( './project.json' , JSON.stringify(project) )
     //font families to load
-    var fnts = project.fonts 
+    var fnts = [ ...project.fonts , ...articles_template.template.fonts]
     //add Material Icons font
-    fnts.push ( 'Material Icons' )
-    project.fonts = fnts
+    //fnts.push ( 'Material Icons' )
+
+    project.fonts = [...new Set(fnts)]
     return project
   }
 }
@@ -34,6 +37,7 @@ export default async ({ command, mode }) => {
     plugins: [
       createVuePlugin(),
       ViteComponents({ deep:true }),
+      viteImagemin(),
       ViteFonts({
         google: {
           families: config.fonts

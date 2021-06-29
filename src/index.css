@@ -22,6 +22,13 @@ h5 {
   @apply text-2xl leading-normal;
 }
 
+ul {
+  @apply ml-10 my-2;
+}
+ul > li {
+  @apply list-disc;
+}
+
 button {
     @apply bg-gray-700 text-white text-sm leading-4 px-2 py-1 border border-transparent rounded-none outline-none;
     width: fit-content;
@@ -93,5 +100,6 @@ position: fixed;
 .blur-5 {
   backdrop-filter: blur(5px);
 }
+
 
 @tailwind utilities;
