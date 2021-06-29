@@ -15,14 +15,13 @@ async function autoConfig(){
   let outFolder = !project.target ? path.join(__dirname, "dist") : project.target
   
   if ( project ){
-    //create local project file use by tailwind.config.js to purge
+    //create local project file uses by tailwind.config.js to purge
     fs.writeFileSync ( './project.json' , JSON.stringify(project) )
     //font families to load
-    var fnts = [ ...project.fonts , ...articles_template.template.fonts]
+    //var fnts = project.fonts 
     //add Material Icons font
     //fnts.push ( 'Material Icons' )
-
-    project.fonts = [...new Set(fnts)]
+    //project.fonts = [...new Set(fnts)]
     return project
   }
 }
