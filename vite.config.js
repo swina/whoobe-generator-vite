@@ -12,6 +12,8 @@ async function autoConfig(){
   //load configuration file from external resource (generate by CMS)
   var project = await fetch ( process.env.VITE_API_URL + '/config.json' ).then ( res => res.json() ).then ( pr => { return pr })
   var articles_template = await fetch ( process.env.VITE_API_URL + '/articles.json' ).then ( res => res.json() ).then ( pr => { return pr })
+  let outFolder = !project.target ? path.join(__dirname, "dist") : project.target
+  
   if ( project ){
     //create local project file use by tailwind.config.js to purge
     fs.writeFileSync ( './project.json' , JSON.stringify(project) )
