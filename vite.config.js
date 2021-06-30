@@ -1,5 +1,6 @@
 const { createVuePlugin } = require('vite-plugin-vue2');
 import { loadEnv } from 'vite';
+import ssr from 'vite-plugin-ssr/plugin'
 import viteImagemin from 'vite-plugin-imagemin';
 import ViteComponents from 'vite-plugin-components'
 import ViteFonts from 'vite-plugin-fonts'
@@ -36,6 +37,7 @@ export default async ({ command, mode }) => {
       emptyOutDir: true
     },
     plugins: [
+      ssr(),
       createVuePlugin(),
       ViteComponents({ deep:true }),
       viteImagemin(),
@@ -44,7 +46,7 @@ export default async ({ command, mode }) => {
           families: config.fonts
         },
       }),
-      VitePWA({
+      /*VitePWA({
         registerType: 'prompt',
         manifest: {
             "theme_color": "#5c5555",
@@ -85,7 +87,7 @@ export default async ({ command, mode }) => {
         
         }
         
-      })
+      })*/
     ],
     server: {
       hmr : { overlay: false }

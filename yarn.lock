@@ -1106,6 +1106,23 @@
     "@babel/helper-validator-identifier" "^7.14.5"
     to-fast-properties "^2.0.0"
 
+"@brillout/json-s@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@brillout/json-s/-/json-s-0.2.0.tgz#4ef2cc02803da43790bdff90a0b0a5762161ff6f"
+  integrity sha512-kYmNGXGrBXqF4rmIXDpQVUFK9af1DF38BjUXgEwnPk1bZv3dFVjn8iu4CgE+LP5KvMyyDWfGhQfIPuX+pc3jNg==
+
+"@brillout/libassert@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@brillout/libassert/-/libassert-0.3.0.tgz#ea5a72b8338ef96f7c4bb5c5ca9e2e8b62f7b87f"
+  integrity sha512-Sun0ozPpFTbFs1M6niqliH0R0Xtqdh1IljE6ygfuBQOLJiUUnb8B2hGcWnXQ6CSbFAoov5tAXg/+D6YXPtPkZQ==
+
+"@brillout/path-to-regexp@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@brillout/path-to-regexp/-/path-to-regexp-0.1.2.tgz#f6d415d3dc61c54e2ef59155a4df56e36c8eaf7f"
+  integrity sha512-hGwx0UhXfUmuQlzVv5799k1MkXh/Q6EOxUMDS0cf9iD2ZXMG6INUkkvK2I5rFRH0WD2bqnndnoN1dgaCRo8w7w==
+  dependencies:
+    path-to-regexp "^1.7.0"
+
 "@fullhuman/postcss-purgecss@^3.1.3":
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/@fullhuman/postcss-purgecss/-/postcss-purgecss-3.1.3.tgz#47af7b87c9bfb3de4bc94a38f875b928fffdf339"
@@ -2161,6 +2178,11 @@ bytes@^3.0.0:
   resolved "https://registry.yarnpkg.com/bytes/-/bytes-3.1.0.tgz#f6cf7933a360e0588fa9fde85651cdc7f805d1f6"
   integrity sha512-zauLjrfCG+xvoyaqLoV8bLVXXNGC4JqlxFCutSDWA6fJrTo2ZuvLYTqZ7aHBLZSMOopbzwv8f+wZcVzfVTI2Dg==
 
+cac@^6.7.3:
+  version "6.7.3"
+  resolved "https://registry.yarnpkg.com/cac/-/cac-6.7.3.tgz#10410b8611677990cc2e3c8b576d471c1d71b768"
+  integrity sha512-ECVqVZh74qgSuZG9YOt2OJPI3wGcf+EwwuF/XIOYqZBD0KZYLtgPWqFPxmDPQ6joxI1nOlvVgRV6VT53Ooyocg==
+
 cacheable-request@^2.1.1:
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/cacheable-request/-/cacheable-request-2.1.4.tgz#0d808801b6342ad33c91df9d0b44dc09b91e5c3d"
@@ -2639,6 +2661,11 @@ detective@^5.2.0:
     acorn-node "^1.6.1"
     defined "^1.0.0"
     minimist "^1.1.1"
+
+devalue@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/devalue/-/devalue-2.0.1.tgz#5d368f9adc0928e47b77eea53ca60d2f346f9762"
+  integrity sha512-I2TiqT5iWBEyB8GRfTDP0hiLZ0YeDJZ+upDxjBfOC2lebO5LezQMv7QvIUTzdb64jQyAKLf1AHADtGN+jw6v8Q==
 
 didyoumean@^1.2.1:
   version "1.2.1"
@@ -3684,6 +3711,11 @@ is-utf8@^0.2.0:
   resolved "https://registry.yarnpkg.com/is-utf8/-/is-utf8-0.2.1.tgz#4b0da1442104d1b336340e80797e865cf39f7d72"
   integrity sha1-Sw2hRCEE0bM2NA6AeX6GXPOffXI=
 
+isarray@0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/isarray/-/isarray-0.0.1.tgz#8a18acfca9a8f4177e09abfc6038939b05d1eedf"
+  integrity sha1-ihis/Kmo9Bd+Cav8YDiTmwXR7t8=
+
 isarray@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/isarray/-/isarray-1.0.0.tgz#bb935d48582cba168c06834957a54a3e07124f11"
@@ -3771,6 +3803,11 @@ keyv@3.0.0:
   integrity sha512-eguHnq22OE3uVoSYG0LVWNP+4ppamWr9+zWBe1bsNcovIMy6huUJFPgy4mGwCd/rnl3vOLGW1MTlu4c57CT1xA==
   dependencies:
     json-buffer "3.0.0"
+
+kolorist@^1.4.1:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/kolorist/-/kolorist-1.5.0.tgz#a06f7dd11d1b5fdb743d79c8acd4e1ecbcbd89b3"
+  integrity sha512-pPobydIHK884YBtkS/tWSZXpSAEpcMbilyun3KL37ot935qL2HNKm/tI45i/Rd+MxdIWEhm7/LmUQzWZYK+Qhg==
 
 load-json-file@^1.0.0:
   version "1.1.0"
@@ -4282,6 +4319,13 @@ path-parse@^1.0.6:
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/path-parse/-/path-parse-1.0.7.tgz#fbc114b60ca42b30d9daf5858e4bd68bbedb6735"
   integrity sha512-LDJzPVEEEPR+y48z93A0Ed0yXb8pAByGWo/k5YYdYgpY2/2EsOsksJrq7lOHxryrVOn1ejG6oAp8ahvOIQD8sw==
+
+path-to-regexp@^1.7.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-1.8.0.tgz#887b3ba9d84393e87a0a0b9f4cb756198b53548a"
+  integrity sha512-n43JRhlUKUAlibEJhPeir1ncUID16QnEjNpwzNdO3Lm4ywrBpBZ5oLD0I6br9evr1Y9JTqwRtAh7JLoOzAQdVA==
+  dependencies:
+    isarray "0.0.1"
 
 path-type@^1.0.0:
   version "1.1.0"
@@ -5390,6 +5434,19 @@ vite-plugin-radar@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/vite-plugin-radar/-/vite-plugin-radar-0.2.0.tgz#52f90c2a040a7ffda971936fb83ca4ca06b06be8"
   integrity sha512-z6I0Nki872Y6uG17s6hoVrEhsQXVsQ2iYVism0YbRZYg2HCsj85kg+TKlsPvx5UheBjRbJlE3yWLv2kLjyyfgw==
+
+vite-plugin-ssr@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/vite-plugin-ssr/-/vite-plugin-ssr-0.1.2.tgz#87fac3340023b05c2e621686a070b8c60dca5713"
+  integrity sha512-Gg2YF1MpSIiNsJ146q2+MHX/J04RVDXBKljrMuCVi+bPaOC6N+axkKkv/HwLwTxpVu4iPeGdVnaIokWNQCko2A==
+  dependencies:
+    "@brillout/json-s" "^0.2.0"
+    "@brillout/libassert" "^0.3.0"
+    "@brillout/path-to-regexp" "^0.1.2"
+    cac "^6.7.3"
+    devalue "^2.0.1"
+    fast-glob "^3.2.5"
+    kolorist "^1.4.1"
 
 vite-plugin-vue2@^1.4.0:
   version "1.6.2"
